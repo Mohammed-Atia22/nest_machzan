@@ -6,19 +6,19 @@ export type StoreDocument = Store & Document;
 
 @Schema()
 export class Store{
-    @Prop()
+    @Prop({required:true})
     name:string;
 
-    @Prop()
+    @Prop({required:true})
     address:string;
 
-    @Prop()
+    @Prop({required:true})
     usage:string;
 
-    @Prop()
+    @Prop({required:true})
     area:number;
 
-    @Prop()
+    @Prop({required:true})
     createdby:string;
 }
 

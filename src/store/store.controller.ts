@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller , Body, Post , Get, Patch, Delete , Param , Req } from '@nestjs/common';
+import { Controller , Body, Post , Get, Patch, Delete , Param , Req, HttpException, HttpStatus } from '@nestjs/common';
 import { StoreService } from './store.service';
 import { StoreDto } from './DTO/store.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
@@ -24,7 +24,11 @@ export class StoreController {
     @Get()
     @UseGuards(JwtAuthGuard)
     FindAllStores(){
-        return this.storeService.FindAllStores();
+        try {
+            return this.storeService.FindAllStores();
+        } catch (error) {
+            return error
+        }
     }
     @Get(':id')
     @UseGuards(JwtAuthGuard)

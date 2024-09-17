@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable,HttpException,HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Store,StoreDocument } from './Store.schema';
 import { Model } from 'mongoose';
@@ -10,20 +10,40 @@ export class StoreService {
     constructor(@InjectModel(Store.name) private StoreModel:Model<StoreDocument>){}
 
     async createStore(storeDto:StoreDto){
-        return this.StoreModel.create(storeDto);
+        try {
+            return this.StoreModel.create(storeDto);
+        } catch (error) {
+            return error;
+        }
     }
     async FindAllStores(){
-        return this.StoreModel.find();
+        try {
+            return this.StoreModel.find();
+        } catch (error) {
+            return error;
+        }
     }
     async findStore(id:string){
-        const store = await this.StoreModel.findById(id);
-        return store;
+        try {
+            const store = await this.StoreModel.findById(id);
+            return store;
+        } catch (error) {
+            return error;
+        }
     }
     async updateStore(id:string,storeDto:StoreDto){
-        const store = await this.StoreModel.findByIdAndUpdate(id,storeDto,{new:true});
-        return store;
+        try {
+            const store = await this.StoreModel.findByIdAndUpdate(id,storeDto,{new:true});
+            return store;
+        } catch (error) {
+            return error;
+        }
     }
     async deleteStore(id:string){
-        return this.StoreModel.findByIdAndDelete(id);
+        try {
+            return this.StoreModel.findByIdAndDelete(id);
+        } catch (error) {
+            return error;
+        }
     }
 }
